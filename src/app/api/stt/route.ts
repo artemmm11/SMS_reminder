@@ -76,13 +76,10 @@ export async function POST(request: NextRequest) {
     const transcription = await openai.audio.transcriptions.create({
       file,
       model: 'whisper-1',
-      response_format: 'verbose_json',
     });
 
     return NextResponse.json({
       transcript: transcription.text,
-      language: transcription.language,
-      duration: transcription.duration,
       confidence: 1.0,
     });
   } catch (error: unknown) {
