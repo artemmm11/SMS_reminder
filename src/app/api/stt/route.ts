@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { checkRateLimit, getClientIP } from '@/lib/rate-limit';
-import { MAX_AUDIO_SIZE_BYTES } from '@/lib/validation';
+import { checkRateLimit, getClientIP } from '../../../lib/rate-limit';
+import { MAX_AUDIO_SIZE_BYTES } from '../../../lib/validation';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,

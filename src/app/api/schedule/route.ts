@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
-import prisma from '@/lib/prisma';
-import { checkRateLimit, getClientIP } from '@/lib/rate-limit';
+import prisma from '../../../lib/prisma';
+import { checkRateLimit, getClientIP } from '../../../lib/rate-limit';
 import {
   scheduleRequestSchema,
   formatPhoneE164,
   sanitizeMessage,
-} from '@/lib/validation';
-import { scheduleReminderJob } from '@/lib/qstash';
+} from '../../../lib/validation';
+import { scheduleReminderJob } from '../../../lib/qstash';
 
 export const runtime = 'nodejs';
 

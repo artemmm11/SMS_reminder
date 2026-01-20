@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifySignatureAppRouter } from '@upstash/qstash/dist/nextjs';
-import prisma from '@/lib/prisma';
-import { sendSMS } from '@/lib/twilio';
+import prisma from '../../../lib/prisma';
+import { sendSMS } from '../../../lib/twilio';
 
 const MAX_RETRIES = 3;
 
