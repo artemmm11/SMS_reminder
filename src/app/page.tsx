@@ -21,7 +21,13 @@ function formatDuration(seconds: number): string {
 function getMinDateTime(): string {
   const now = new Date();
   now.setMinutes(now.getMinutes() + 5);
-  return now.toISOString().slice(0, 16);
+  // Use local time format for datetime-local input (not UTC)
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
 }
 
 function RecordingIndicator({ duration }: { duration: number }) {
