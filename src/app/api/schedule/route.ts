@@ -51,9 +51,12 @@ export async function POST(request: NextRequest) {
     const sanitizedMessage = sanitizeMessage(message);
     const runAtDate = new Date(runAt);
 
-    if (runAtDate <= new Date()) {
+    const minTime = new Date();
+    minTime.setMinutes(minTime.getMinutes() + 4); // 4 min buffer for network delay
+
+    if (runAtDate <= minTime) {
       return NextResponse.json(
-        { error: 'Scheduled time must be in the future' },
+        { error: 'Reminder must be scheduled at least 5 minutes in the future' },
         { status: 400 }
       );
     }
@@ -64,6 +67,21 @@ export async function POST(request: NextRequest) {
     if (runAtDate > maxFutureDate) {
       return NextResponse.json(
         { error: 'Cannot schedule reminders more than 1 year in advance' },
+        { status: 400 }
+      );
+    }
+
+    // Check for existing active reminder for this phone number
+    const existingReminder = await prisma.reminder.findFirst({
+      where: {
+        phone: formattedPhone,
+        status: 'SCHEDULED',
+      },
+    });
+
+    if (existingReminder) {
+      return NextResponse.json(
+        { error: 'You already have an active reminder for this phone number. Please wait for it to be sent or delete it first.' },
         { status: 400 }
       );
     }
