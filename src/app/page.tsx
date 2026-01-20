@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useAudioRecorder, RecorderStatus } from '../../hooks/useAudioRecorder';
+import { useAudioRecorder, RecorderStatus } from '../hooks/useAudioRecorder';
 
 type AppState = 'idle' | 'recording' | 'transcribing' | 'editing' | 'scheduling' | 'success' | 'error';
 
